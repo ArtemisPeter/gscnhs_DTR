@@ -36,7 +36,7 @@ if (!isset($_SESSION['name'])) {
     exit();
 }
 ?>
-<a href="#" class="d-block"><?php echo $_SESSION['name']; ?></a>
+<a href="#" class="d-block"><?php echo $_SESSION['name'];  ?></a>
 
         </div>
       </div>
@@ -51,10 +51,26 @@ if (!isset($_SESSION['name'])) {
                with font-awesome or any other icon font library -->
           
           <li class="nav-item" >
+            <a href="../pages/main.php" class="nav-link" id='dtr'>
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Import
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" >
             <a href="" class="nav-link" id='dtr'>
               <i class="nav-icon fas fa-th"></i>
               <p>
                 DTR
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../index.php" class='nav-link'>
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                Log out
               </p>
             </a>
           </li>

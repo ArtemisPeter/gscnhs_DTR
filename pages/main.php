@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Import</title>
-  <link rel="icon" type="image/x-icon" href="../dist/img/cityhigh/NMD.png">
+  <?php require('../component/icon.php') ?>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -20,6 +20,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
  
+
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -30,7 +32,11 @@
   </div>
 
   <!-- Navbar -->
-  <?php require('../component/menu.php')?>
+
+  <?php 
+  require('../component/menu.php');
+  $userId = $_SESSION['userId'];
+  ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -63,11 +69,29 @@
               <thead>
                 <tr></tr>
                   <th>Name</th>
-                  <th>Date</th>
                   <th>DateTime</th>
                   <th>Status</th>
                 </tr>
               </thead>
+              <tbody>
+                <?php 
+                  $retrieveData = "SELECT CONCAT(B.fname,' ',B.lname) AS teacher, A.recordedTime, C.state FROM tbl_dtr AS A
+                  INNER JOIN tbl_teacher AS B ON B.teacher_id = A.teacher_id
+                  INNER JOIN tbl_state AS C ON C.state_id = A.state_id
+                  WHERE B.teacher_id = (SELECT tbl_account.teacher_id FROM tbl_account WHERE tbl_account.useraccount_id = $userId)";
+                  $result = mysqli_query($con, $retrieveData);
+
+                  foreach($result as $row){
+                ?>
+                  <tr>
+                    <td><?php echo $row['teacher']?></td>
+                    <td><?php echo $row['recordedTime']?></td>
+                    <td><?php echo $row['state']; ?></td>
+                  </tr>
+                  <?php 
+                  };
+                  ?>
+              </tbody>
             </table>
           </div>
         </div>
@@ -82,12 +106,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+      <div id="remind"></div>
+      <form id="dtr_import" enctype="multipart/form-data">
+
+                <a href="https://drive.google.com/drive/folders/1OvNGMMpE28ZsAVR5tecX3GRwP-DzDLpe?usp=drive_link" class="d-flex justify-content-center" target="_blank">Click me to download the CSV file</a>
+                    <div class="row d-flex justify-content-center mt-4 mb-4">
+                        <div class="col-10">
+                            <input type="file" class="form-control-file form-control-lg" name ="dtr_" id ="dtr_" required accept=".csv" >
+                            
+                        </div>
+                        
+                        <div class="col-2">
+                            <button class="btn btn-danger" type="submit" id="import" name="import"><i class="fas fa-file-upload"></i></button>
+                        </div>
+                        <div class="alert mt-4 d-none" id='alert' role="alert">
+                         
+                        </div>
+                    </div>
+                </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
+      
     </div>
   </div>
 </div>
@@ -134,10 +172,8 @@
 <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="../dist/js/pages/dashboard.js"></script>
-<script src='../util/import.js'></script>
 
+<script src='../util/import.js'></script>
 <script>
   $('#dtr').addClass('active');
 </script>

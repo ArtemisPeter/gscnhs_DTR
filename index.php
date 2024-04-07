@@ -2,6 +2,12 @@
 <html>
   <head>
     <title>DTR Generator</title>
+    <link rel="icon" type="image/x-icon" href="dist/img/cityhigh/school-logo.png">
+
+    <?php
+    session_start();
+    session_destroy();
+?>
     <style>
       body{
         background-image: url('dist/img/cityhigh/bg1.jpg');
