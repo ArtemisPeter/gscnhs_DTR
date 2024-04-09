@@ -46,12 +46,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Teacher</h1>
+            <h1 class="m-0">Office Hours</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Teacher</li>
+              <li class="breadcrumb-item active">Office Hours</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -66,26 +66,30 @@
         <div class="card">
             <div class="card-body">
                 
-                <table class="table" id="tableteacher">
+                <table class="table" id="tableOfficeHrs">
                     <thead>
                         <tr>   
                             <th class='d-none'>ID</th>
-                            <th>Teacher</th>
-                            <th>Office Hours</th>
+                            <th>Morning IN</th>
+                            <th>Morning OUT</th>
+                            <th>Afternoon IN</th>
+                            <th>Afternoon OUT</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
-                            $GetData = "SELECT A.teacher_id,  CONCAT(A.fname,' ',A.lname) AS TeacheName, CONCAT(B.timeIn_Morning,' -',B.timeOut_Morning,' | ',B.timeIn_Afternoon,' - ', B.timeOut_Afternoon) AS OfficeHours FROM tbl_teacher AS A INNER JOIN tbl_timeinout AS B ON A.timeInOut_id = B.timeInOut_id;";
+                            $GetData = "SELECT A.timeInOut_id, A.timeIn_Morning, A.timeOut_Morning, A.timeIn_Afternoon, A.timeOut_Afternoon FROM tbl_timeinout AS A";
                             $Result = mysqli_query($con, $GetData);
 
                             foreach($Result as $row){
                              ?>
                              <tr>
-                                <td class='d-none'><?php echo $row['teacher_id'] ?></td>
-                                <td><?php echo $row['TeacheName'] ?></td>
-                                <td><?php echo $row['OfficeHours'] ?></td>
+                                <td class='d-none'><?php echo $row['timeInOut_id'] ?></td>
+                                <td><?php echo $row['timeIn_Morning'] ?></td>
+                                <td><?php echo $row['timeOut_Morning'] ?></td>
+                                <td><?php echo $row['timeIn_Afternoon'] ?></td>
+                                <td><?php echo $row['timeOut_Afternoon'] ?></td>
                                 <td><button class="btn btn-primary editBtn">Edit</button></td>
                              </tr>
                             <?php }?>
@@ -99,7 +103,7 @@
                     <div class="modal-content" >
                         <div class="modal-header d-flex justify-content-center"style="border-bottom: 1px solid green">
                             <h4 id="namez"></h4>
-                            <div class="d-none" id="teacherid"></div>
+                            <div class="d-none" id="OfficeHrsID"></div>
                         </div>
                         <form id="updateInfo">
                         <div class="modal-body">
@@ -107,34 +111,30 @@
              
             </div>  
                           <div class="row">
-                              <div class="col-6">
-                                <label for="firstName">First Name</label>
-                                <input type="text" class="form-control" id="TeacherFname" name="TeacherFname">
-                              </div>
-                              <div class="col-6">
-                                <label for="firstName">Last Name</label>
-                                <input type="text" class="form-control" id="TeacherLname" name="TeacherLname">
+                              <div class="col-12">
+                                <label for="firstName">Morning IN</label>
+                                <input type="text" class="form-control" id="AMIN" name="AMIN">
                               </div>
                           </div>
-                        
-                          <div class="row mt-2">
-                            <div class="col-12">
-                              <label for ="contactNum">Office Hours</label>
-                                <select class="form-select" id="officeHours">
-                                    <?php 
-                                        $getSelect = "SELECT B.timeInOut_id, CONCAT(B.timeIn_Morning,' -',B.timeOut_Morning,' | ',B.timeIn_Afternoon,' - ', B.timeOut_Afternoon) AS OfficeHours FROM tbl_timeinout AS B";
-                                        $resultSelect = mysqli_query($con, $getSelect);
-
-                                        foreach($resultSelect as $Select){
-                                            ?>
-                                                <option value=<?php echo $Select['timeInOut_id'] ?>><?php echo $Select['OfficeHours'] ?></option>
-                                            <?php
-                                        }
-
-                                    ?>
-                                </select>
-                            </div>
+                          <div class="row">
+                              <div class="col-12">
+                                <label for="firstName">Morning OUT</label>
+                                <input type="text" class="form-control" id="AMOUT" name="AMOUT">
+                              </div>
                           </div>
+                          <div class="row">
+                              <div class="col-12">
+                                <label for="firstName">Afternoon IN</label>
+                                <input type="text" class="form-control" id="AFIN" name="AFIN">
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-12">
+                                <label for="firstName">Afternoon OUT</label>
+                                <input type="text" class="form-control" id="AFOUT" name="AFOUT">
+                              </div>
+                          </div>
+                          
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="closeBtn" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -187,10 +187,10 @@
 <script src="../dist/js/adminlte.js"></script>
 
 
-<script src='../util/teacher.js'></script>
+<script src='../util/OfficeHrs.js'></script>
 <script>
     $('#master').addClass('menu-open');
-    $('#teacher').addClass('active');
+    $('#clock').addClass('active');
 </script>
 </body>
 </html>

@@ -62,9 +62,9 @@ if (!isset($_SESSION['name'])) {
                 </li>
                                     
                 <li class="nav-item">
-                  <a href="registrart_import_YP.php" class="nav-link" id="clock">
+                  <a href="../pages/OfficeHrs.php" class="nav-link" id="clock">
                   <i class="nav-icon fas fa-clock"></i>
-                    <p>Time In-Out</p>
+                    <p>Office Hours</p>
                   </a>
                 </li>
               </ul>
