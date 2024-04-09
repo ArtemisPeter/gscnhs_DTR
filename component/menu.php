@@ -49,17 +49,36 @@ if (!isset($_SESSION['name'])) {
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          
+               <li class="nav-item" id="master">
+            <a href="#" class="nav-link" >
+              <i class="nav-icon fas fa-database"></i>
+              <p>Master Data<i class="fas fa-angle-left right"></i></p></a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="../pages/teacher.php" class="nav-link" id="teacher">
+                  <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                    <p>Teacher</p>
+                  </a>
+                </li>
+                                    
+                <li class="nav-item">
+                  <a href="registrart_import_YP.php" class="nav-link" id="clock">
+                  <i class="nav-icon fas fa-clock"></i>
+                    <p>Time In-Out</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
           <li class="nav-item" >
             <a href="../pages/main.php" class="nav-link" id='dtr'>
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-file-import"></i>
               <p>
                 Import
               </p>
             </a>
           </li>
           <li class="nav-item" >
-            <a href="" class="nav-link" id='dtr'>
+            <a href="../pages/generatedtr.php" class="nav-link" id='generatedtrmenu'>
               <i class="nav-icon fas fa-th"></i>
               <p>
                 DTR

@@ -77,8 +77,7 @@
                 <?php 
                   $retrieveData = "SELECT CONCAT(B.fname,' ',B.lname) AS teacher, A.recordedTime, C.state FROM tbl_dtr AS A
                   INNER JOIN tbl_teacher AS B ON B.teacher_id = A.teacher_id
-                  INNER JOIN tbl_state AS C ON C.state_id = A.state_id
-                  WHERE B.teacher_id = (SELECT tbl_account.teacher_id FROM tbl_account WHERE tbl_account.useraccount_id = $userId)";
+                  INNER JOIN tbl_state AS C ON C.state_id = A.state_id";
                   $result = mysqli_query($con, $retrieveData);
 
                   foreach($result as $row){
