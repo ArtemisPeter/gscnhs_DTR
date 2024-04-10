@@ -3,7 +3,7 @@ $(document).ready(()=>{
         $("#tableOfficeHrs").DataTable({
           "responsive": true, "lengthChange": false, "autoWidth": false,
           "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        })
         
         });
 
@@ -28,6 +28,51 @@ $(document).ready(()=>{
         $('#closeBtn').on('click', ()=>{
             $('#updateModal').modal('hide');
         })
+       
+        $('#addOfficeHrs').on('click', ()=>{
+            $('#insertNew').modal('show');
+         })
+         $('#closeBtn_insert').on('click', ()=>{
+             $('#insertNew').modal('hide');
+            
+         })
+
+         $('#insertNew').submit((e)=>{
+            e.preventDefault();
+            var AMIN_Insert = $('#AMIN_insert').val();
+            var AMOUT_Insert = $('#AMOUT_insert').val();
+            var PMIN_Insert = $('#AFIN_insert').val();
+            var PMOUT_Insert = $('#AFOUT_insert').val();
+
+            if(AMIN_Insert === '' || AMIN_Insert === ' ' || AMOUT_Insert === '' || AMOUT_Insert === ' ' || PMIN_Insert === '' || PMIN_Insert === ' ' || PMOUT_Insert === '' || PMOUT_Insert === ' '){
+                $('#alert').removeClass('d-none');
+                $('#alert').text('Required Input should be filled!')
+            }else{
+                $.ajax({
+                    url: '../util/OfficeHrs.php',
+                    data: {AMIN: AMIN_Insert, AMOUT: AMOUT_Insert, PMIN: PMIN_Insert, PMOUT:PMOUT_Insert, option: 2, OfficeHrID: 0 },
+                    method: "POST",
+                    success: ((response)=>{
+                        if(response === 'success'){
+                            Swal.fire({
+                                title: "Insert Successful!",
+                                icon: "success"
+                              }).then(()=>{
+                                location.reload()
+                              });
+                        }else{
+                            Swal.fire({
+                                title: "There is an error!",
+                                icon: "error"
+                              }).then(()=>{
+                                location.reload()
+                              });
+                        }
+                    })
+                })
+            }
+            
+         })
 
         $('#updateInfo').submit((e)=>{
             e.preventDefault();
@@ -44,7 +89,7 @@ $(document).ready(()=>{
             }else{
                 $.ajax({
                     url: '../util/OfficeHrs.php',
-                    data: {AMIN: AMIN, AMOUT: AMOUT, PMIN: PMIN, PMOUT:PMOUT, OfficeHrID: OfficeHrID },
+                    data: {AMIN: AMIN, AMOUT: AMOUT, PMIN: PMIN, PMOUT:PMOUT, OfficeHrID: OfficeHrID, option: 1 },
                     method: "POST",
                     success: ((response) => {
                         console.log(response);
@@ -71,4 +116,7 @@ $(document).ready(()=>{
 
             
         })
+
+        
+
 })

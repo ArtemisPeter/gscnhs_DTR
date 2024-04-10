@@ -29,12 +29,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Half Bond Paper HTML</title>
+    <title>DTR</title>
    
 
 
     <style>
-        
+         @media print {
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            width: 8.5in;
+            height: 13in;
+        }
+        /* Additional print styles for other elements if needed */
+    }
           body {
             margin: 0;
             font-family: Arial, sans-serif; /* Define your preferred font */
@@ -125,24 +133,28 @@
             <p style="text-decoration: underline; text-transform: uppercase" class="center" id="TeacherName"><b><?php echo $teacherName ?></b></p>
             <p class="center">NAME</p>
             <p class='f12'>For the month of <span style="text-decoration: underline; text-transform: uppercase"><?php echo $monthName.', '.$Year ?></span></p>
-            <table class="tbl-no-border">
-                <tr>
+            <table class="tbl-no-border" >
+                <tr style="padding: 40px;">
                     <td></td>
                     <td><b>AM</b></td>
+                    <td style="width: 10%"></td>
                     <td><b>PM</b></td>
                 </tr>
                 <tr>
                     <td><b>Office Hrs. -Arrival:</b></td>
                     <td style="text-decoration: underline;"><b><?php echo $TimeInAM ?></b></td>
+                    <td></td>
                     <td style="text-decoration: underline;"><b><?php echo $TimeInPM ?></b></td>
                 </tr>
                 <tr>
                     <td style="text-align: right;"><b>Departure:</b></td>
                     <td style="text-decoration: underline;"><b><?php echo $TimeOutAm ?></b></td>
+                    <td></td>
                     <td style="text-decoration: underline;"><b><?php echo $TimeOutPM ?></b></td>
                 </tr>
             </table>
             <p class="f12">Regular Days ______ Saturdays ______</p>
+            <br>
             <table class="tbl-bordered">
                 <tr>
                     <td rowspan="2">Day</td>
@@ -206,14 +218,16 @@
             
            
             <p style="font-size: 11px">I certify on my honor that the above is true and correct report of the hours of work performed, record or which was made daily at the time of arrival at and departure from office.</p>
-            
+            <br>
             <p class='footer'>_______________</p>
             <p class="footer">_______________________</p>
             <p class="footer">Verified as the prescribed office hours</p>
             <br>
-            
+            <br>
             <p class="principal">SHIELA G. BALBON, Ed. D</p>
             <p class="footer">Principal II</p>
+            <br>
+            <br>
         </div>
         <div class="column"></div>
       </div>

@@ -29,8 +29,8 @@ require('../connect.php');
 
                 if (count($NameParts) > 1) {
                     // If there are multiple parts, build the first name
-                    $fname = implode(' ', array_slice($NameParts, 1));
-                    $lname = $NameParts[0];
+                    $fname = implode(' ', array_slice($NameParts, 0, -1));
+                    $lname = end($NameParts);
                 } else {
                     // If only one part, consider it as the first name
                     $fname = $NameParts[0];
@@ -41,7 +41,7 @@ require('../connect.php');
 
                 //Insert if teacher is not found
                 if($ResultTeacher->num_rows <= 0){
-                    $InsertNewTeacher = "INSERT INTO tbl_teacher (tbl_teacher.fname, tbl_teacher.lname, tbl_teacher.role_id) VALUES ('$fname', '$lname', 1)";
+                    $InsertNewTeacher = "INSERT INTO tbl_teacher (tbl_teacher.fname, tbl_teacher.lname, tbl_teacher.role_id, tbl_teacher.timeInOut_id) VALUES ('$fname', '$lname', 1, 2)";
                     $Res = mysqli_query($con, $InsertNewTeacher);
                 }
 

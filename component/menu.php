@@ -85,6 +85,14 @@ if (!isset($_SESSION['name'])) {
               </p>
             </a>
           </li>
+          <li class="nav-item" >
+            <a href="../pages/aboutMe.php" class="nav-link" id='generatedtrmenu'>
+              <i class="nav-icon fas fa-info"></i>
+              <p>
+                About the System
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="../index.php" class='nav-link'>
             <i class="nav-icon fas fa-sign-out-alt"></i>

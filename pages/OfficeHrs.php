@@ -65,7 +65,7 @@
         </div>
         <div class="card">
             <div class="card-body">
-                
+                <button class="btn btn-primary" id="addOfficeHrs">Add Office Hours</button>
                 <table class="table" id="tableOfficeHrs">
                     <thead>
                         <tr>   
@@ -97,6 +97,7 @@
                 </table>
             </div>
         </div>
+        
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModal" aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered"role="document">
                     <input type = "hidden" name="update_id" id="update_id">
@@ -143,7 +144,56 @@
                         </div>
                     </div>
                 </div>
+
+                
       </div><!-- /.container-fluid -->
+      <div class="modal fade" id="insertNew" tabindex="-1" role="dialog" aria-labelledby="insertNew" aria-hidden="true" data-backdrop="static">
+                  <div class="modal-dialog modal-dialog-centered"role="document">
+                    <input type = "hidden" name="insert_id" id="insert_id">
+                    <div class="modal-content" >
+                        <div class="modal-header d-flex justify-content-center"style="border-bottom: 1px solid green">
+                            
+                            <div class="d-none" id="OfficeHrsID"></div>
+                        </div>
+                        <form id="insertInfo">
+                        <div class="modal-body">
+                        <div class="alert alert-danger d-none" id='alert' role="alert">
+             
+            </div>  
+                          <div class="row">
+                              <div class="col-12">
+                                <label for="AMIN_insert">Morning IN</label>
+                                <input type="input" class="form-control" id="AMIN_insert" name="AMIN">
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-12">
+                                <label for="AMOUT_insert">Morning OUT</label>
+                                <input type="text" class="form-control" id="AMOUT_insert" name="AMOUT">
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-12">
+                                <label for="AFIN_insert">Afternoon IN</label>
+                                <input type="text" class="form-control" id="AFIN_insert" name="AFIN">
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-12">
+                                <label for="AFOUT_insert">Afternoon OUT</label>
+                                <input type="text" class="form-control" id="AFOUT_insert" name="AFOUT">
+                              </div>
+                          </div>
+                          
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="closeBtn_insert" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
     </section>
     <!-- /.content -->
   </div>
