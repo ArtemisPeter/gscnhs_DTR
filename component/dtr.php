@@ -1,29 +1,3 @@
-<?php require('../connect.php');
-    session_start();
-
-    
-    $Month = $_POST['month'];
-    $Year = $_POST['year'];
-
-   
-    $dateObj = DateTime::createFromFormat('!m', $Month);
-    $monthName = $dateObj->format('F'); 
-    
-
-    ?>
-           <?php
-                $getTeacher = "SELECT A.teacher_id, CONCAT(A.fname,' ',A.lname) AS TeacherName, B.* FROM tbl_teacher AS A
-                INNER JOIN tbl_timeinout AS B ON A.timeInOut_id = B.timeInOut_id";
-                $result = mysqli_query($con, $getTeacher);
-
-                foreach($result as $teacher){
-                    $teacherID = $teacher['teacher_id'];
-                    $teacherName = $teacher['TeacherName'];
-                    $TimeInAM = $teacher['timeIn_Morning'];
-                    $TimeOutAm = $teacher['timeOut_Morning'];
-                    $TimeInPM = $teacher['timeIn_Afternoon'];
-                    $TimeOutPM = $teacher['timeOut_Afternoon']
-            ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +13,7 @@
             margin: 0;
             font-family: Arial, sans-serif;
             width: 8.5in;
-            height: 13in;
+            height: 11.7in;
         }
         /* Additional print styles for other elements if needed */
     }
@@ -54,7 +28,8 @@
         .column {
             flex: 50%;
             margin: 0; /* Remove default margin */
-            padding: 3px; /* Add padding to create space between content and edges */
+            padding: 7px; /* Add padding to create space between content and edges */
+            border: 1px solid black;
         }
 
         .center{
@@ -62,7 +37,7 @@
             justify-content: center;
             font-size: 15px;
             font-weight: bold;
-            margin: 0 0;
+            margin: 0 0 0 0;
         }
 
         .footer{
@@ -80,14 +55,10 @@
             font-weight: bold;
             margin: 0 0;
         }
-
-        h2{
-            margin: 5px 0;
-        }
-
+     
         .tbl-bordered{
             width: 100%;
-            height: 200px;
+            height: 50px;
             border-collapse: collapse;
              border: 1px solid black;
         }
@@ -112,8 +83,7 @@
             width: 100%;
             height: auto; /* Maintain aspect ratio */
             display: block; /* Remove any default spacing */
-            margin-bottom: 5px;
-            margin-top: 20px;
+          
         }
 
         .f12{
@@ -123,17 +93,49 @@
     </style>
 </head>
 <body>
- 
-    <div class="row">
-        <div class="column">
-            <p class="center"><b>CIVIL SERVICE FORM 48</b></p>
-            <div class="img-logo"></div>
+<?php require('../connect.php');
+session_start();
+
+$Month = $_POST['month'];
+$Year = $_POST['year'];
+
+$dateObj = DateTime::createFromFormat('!m', $Month);
+$monthName = $dateObj->format('F'); 
+
+$getTeacher = "SELECT A.teacher_id, CONCAT(A.fname,' ',A.lname) AS TeacherName, B.* FROM tbl_teacher AS A
+INNER JOIN tbl_timeinout AS B ON A.timeInOut_id = B.timeInOut_id";
+$result = mysqli_query($con, $getTeacher);
+
+$teacherCount = 0;
+$pageCount = 0;
+
+foreach($result as $teacher){
+    if ($teacherCount % 2 == 0) {
+        if ($teacherCount > 0) {
+            echo '</div>'; // End of row
+        }
+        echo '<div class="row">'; // Start a new row
+        $pageCount++; // Increment page count
+    }
+
+    $teacherID = $teacher['teacher_id'];
+    $teacherName = $teacher['TeacherName'];
+    $TimeInAM = $teacher['timeIn_Morning'];
+    $TimeOutAm = $teacher['timeOut_Morning'];
+    $TimeInPM = $teacher['timeIn_Afternoon'];
+    $TimeOutPM = $teacher['timeOut_Afternoon'];
+
+    echo ' <div class="column">';
+?>
+    
+    <p class="center"><b>CIVIL SERVICE FORM 48</b></p>
+            <div class="img-deped-logo" style="display: flex; justify-content: center; margin-bottom: 5px;  margin-top: 15px" ></div>
+            <div class="img-logo" style="margin-bottom: 5px;"></div>
             <p class="center"><b>DAILY TIME RECORD</b></p>
-            <br>
-            <p style="text-decoration: underline; text-transform: uppercase" class="center" id="TeacherName"><b><?php echo $teacherName ?></b></p>
+            <p style="text-decoration: underline; text-transform: uppercase; margin-top: 10px" class="center" id="TeacherName"><b><?php echo $teacherName ?></b></p>
             <p class="center">NAME</p>
             <p class='f12'>For the month of <span style="text-decoration: underline; text-transform: uppercase"><?php echo $monthName.', '.$Year ?></span></p>
-            <table class="tbl-no-border" >
+<table class="tbl-no-border" >
                 <tr style="padding: 40px;">
                     <td></td>
                     <td><b>AM</b></td>
@@ -154,7 +156,6 @@
                 </tr>
             </table>
             <p class="f12">Regular Days ______ Saturdays ______</p>
-            <br>
             <table class="tbl-bordered">
                 <tr>
                     <td rowspan="2">Day</td>
@@ -215,39 +216,79 @@
                     <td rowspan="6">Total</td>
                 </tr>
             </table>
-            
-           
             <p style="font-size: 11px">I certify on my honor that the above is true and correct report of the hours of work performed, record or which was made daily at the time of arrival at and departure from office.</p>
-            <br>
             <p class='footer'>_______________</p>
+            <br>
             <p class="footer">_______________________</p>
             <p class="footer">Verified as the prescribed office hours</p>
-            <br>
-            <br>
-            <p class="principal">SHIELA G. BALBON, Ed. D</p>
+            <p class="principal" style="margin-top: 10%">SHIELA G. BALBON, Ed. D</p>
             <p class="footer">Principal II</p>
             <br>
+            <div class="img-logo-footer"></div>
             <br>
-        </div>
-        <div class="column"></div>
-      </div>
-      <?php } ?>
-      <script src="../plugins/jquery/jquery.min.js"></script>
-      <script>
-        $(window).on('load', () =>{
+<?php
+    echo '</div>'; // End of column
 
-            var imgElement = $('<img>', {
-            src: '../dist/img/cityhigh/header.png',
+    $teacherCount++; // Increment teacher count
+}
+
+if ($teacherCount % 2 != 0) {
+    echo '</div>'; // End of row if the last row has an odd number of teachers
+}
+?>
+<script src="../plugins/jquery/jquery.min.js"></script>
+      <script>
+    $(window).on('load', () => {
+        // For img-logo
+        var imgElement = $('<img>', {
+            src: '../dist/img/cityhigh/newHeader.png',
             alt: 'Image Alt Text',
             width: '100%',
-            height: '30px'
+           
         });
         $('.img-logo').append(imgElement);
 
-        imgElement.on('load', ()=> {
-            window.print();
-        })
-        })
-      </script>
+        // For img-logo-footer
+        var imgElementFooter = $('<img>', {
+            src: '../dist/img/cityhigh/footer.png', 
+            alt: 'Footer Image Alt Text',
+            width: '100%',
+            
+        });
+        $('.img-logo-footer').append(imgElementFooter);
+
+        // For img-logo-deped
+        var imgElementDepEd = $('<img>', {
+            src: '../dist/img/cityhigh/DepEdLogo.png', 
+            alt: 'Footer Image Alt Text',
+            width: '10%',
+        });
+        $('.img-deped-logo').append(imgElementDepEd);
+
+        // Print when both images are loaded
+        var imagesLoaded = 0;
+        imgElement.on('load', () => {
+            imagesLoaded++;
+            if (imagesLoaded === 3) {
+                window.print();
+            }
+        });
+
+        imgElementFooter.on('load', () => {
+            imagesLoaded++;
+            if (imagesLoaded === 3) {
+                window.print();
+            }
+        });
+        imgElementDepEd.on('load', () => {
+            imagesLoaded++;
+            if (imagesLoaded === 3) {
+                window.print();
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
+
