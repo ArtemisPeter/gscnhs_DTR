@@ -108,6 +108,7 @@ $result = mysqli_query($con, $getTeacher);
 
 $teacherCount = 0;
 $pageCount = 0;
+$totalTeachers = mysqli_num_rows($result); 
 
 foreach($result as $teacher){
     if ($teacherCount % 2 == 0) {
@@ -230,11 +231,14 @@ foreach($result as $teacher){
     echo '</div>'; // End of column
 
     $teacherCount++; // Increment teacher count
+    // Check if this is the last teacher and if it's the last in the row
+    if ($teacherCount == $totalTeachers && $teacherCount % 2 != 0) {
+        echo '<div class="column"></div>'; // Add an extra column if it's the last teacher and the count is odd
+        echo '</div>'; // Close the row
+    }
 }
 
-if ($teacherCount % 2 != 0) {
-    echo '</div>'; // End of row if the last row has an odd number of teachers
-}
+
 ?>
 <script src="../plugins/jquery/jquery.min.js"></script>
       <script>
